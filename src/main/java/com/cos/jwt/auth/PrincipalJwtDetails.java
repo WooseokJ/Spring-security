@@ -1,6 +1,7 @@
 package com.cos.jwt.auth;
 
-import com.cos.security.model.User;
+import com.cos.jwt.model.User;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-public class PrincipalDetails implements UserDetails {
+@Getter
+public class PrincipalJwtDetails implements UserDetails {
     private final User user;
 
 
@@ -19,8 +21,7 @@ public class PrincipalDetails implements UserDetails {
         collect.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-
-                return user.getRole();
+                return user.getRoles().getValue();
             }
         });
         return collect;
